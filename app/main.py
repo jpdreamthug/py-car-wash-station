@@ -22,12 +22,12 @@ class CarWashStation:
         self.count_of_ratings = count_of_ratings
 
     def serve_cars(self, cars_list: list) -> Union[int, float]:
-        result = []
+        result = 0
         for car in cars_list:
             wash_cost = self.wash_single_car(car)
             if wash_cost is not None:
-                result.append(wash_cost)
-        return round(sum(result), 1)
+                result += wash_cost
+        return round(result, 1)
 
     def calculate_washing_price(self, car: Car) -> Union[int, float]:
         wash_cost = (car.comfort_class * (self.clean_power - car.clean_mark)
