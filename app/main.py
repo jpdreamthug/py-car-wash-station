@@ -26,14 +26,11 @@ class CarWashStation:
     def serve_cars(self, cars_list: list) -> Union[int, float]:
         result = 0
 
-        cars_to_wash = [
-            car for car in cars_list if self.clean_power > car.clean_mark
-        ]
-
-        for car in cars_to_wash:
-            wash_cost = self.calculate_washing_price(car)
-            result += wash_cost
-            self.wash_single_car(car)
+        for car in cars_list:
+            if self.clean_power > car.clean_mark:
+                wash_cost = self.calculate_washing_price(car)
+                result += wash_cost
+                self.wash_single_car(car)
 
         return result
 
