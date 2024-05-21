@@ -26,14 +26,12 @@ class CarWashStation:
     def serve_cars(self, cars_list: list) -> Union[int, float]:
         result = 0
 
-        for car in cars_list:
+        cars_to_wash = [car for car in cars_list if self.clean_power > car.clean_mark]
 
-            if self.clean_power > car.clean_mark:
-                wash_cost = self.calculate_washing_price(car)
-
-                if wash_cost is not None:
-                    result += wash_cost
-                    self.wash_single_car(car)
+        for car in cars_to_wash:
+            wash_cost = self.calculate_washing_price(car)
+            result += wash_cost
+            self.wash_single_car(car)
 
         return result
 
@@ -46,9 +44,7 @@ class CarWashStation:
              / self.distance_from_city_center), 1)
 
     def wash_single_car(self, car: Car) -> None:
-
-        if self.clean_power > car.clean_mark:
-            car.clean_mark = self.clean_power
+        car.clean_mark = self.clean_power
 
     def rate_service(self, rate: int) -> None:
         self.count_of_ratings += 1
